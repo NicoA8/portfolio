@@ -1,0 +1,60 @@
+@use "@/styles/mixins" as *;
+
+.about {
+    margin-block: 4rem !important;
+    width: 100vw;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    gap: 3rem;
+    scroll-margin-top: 3rem;
+
+    div:nth-child(3n) {
+        div:last-child {
+            div:first-child {
+                transform: translateX(-80%);
+            }
+        }
+    }
+
+    @include s-screen {
+        scroll-margin-top: 1rem;
+    }
+
+    @include m-screen {
+        scroll-margin-top: 2rem;
+    }
+}
+
+.line {
+    display: block;
+    min-width: 60rem;
+    width: 105%;
+    height: fit-content;
+    position: absolute;
+    z-index: -2;
+    inset: 50%;
+    transform: translate(-50%, -60%);
+
+    &_2 {
+        width: 105%;
+        transform: translate(-50%, 0);
+    }
+
+    &.appear {
+        path {
+            stroke-dashoffset: 2809;
+
+            @include path-animation(7s, 2809, ease, 0.5s);
+        }
+
+        &_2 path {
+            stroke-dashoffset: 2373;
+
+            @include path-animation(7s, 2373, ease, 0.5s);
+        }
+    }
+}

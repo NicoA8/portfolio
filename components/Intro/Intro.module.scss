@@ -1,0 +1,123 @@
+@use "@/styles/mixins" as *;
+
+.intro {
+    --transition-duration: 0.5s;
+    --transition-easing: cubic-bezier(0.25, 0.74, 0.22, 0.99);
+    --transition-delay: 0s;
+
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.img_box {
+    --img-size: 19rem;
+    --offset: 2rem;
+
+    position: relative;
+    opacity: 0;
+
+    &::before {
+        content: "";
+        opacity: 0.2;
+        z-index: -2;
+        position: absolute;
+        inset-inline-start: calc(-1 * var(--offset));
+        inset-block-start: 0.5rem;
+        width: calc(var(--img-size) + 1.5rem);
+        height: calc(var(--img-size) + 1.5rem);
+        border: 1px solid var(--text-color);
+        border-radius: 100%;
+    }
+
+    &.appear {
+        @include fade-animation(3s, ease);
+    }
+}
+
+.img {
+    width: var(--img-size);
+    height: var(--img-size);
+    object-fit: cover;
+    border-radius: 100%;
+    box-shadow: var(--offset) 1rem 0 var(--black-bean);
+}
+
+.title {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-highlight);
+    font-size: clamp(2rem, 6vw, 3rem);
+    text-transform: uppercase;
+    min-width: 16rem;
+    width: 70vw;
+    max-width: 32rem;
+    white-space: nowrap;
+    opacity: 0;
+    transition: all 0.1s linear;
+
+    &.appear {
+        opacity: 1;
+
+        span:first-child {
+            text-align: start;
+            opacity: 0;
+
+            @include slide-up-animation(2s, 1.5rem, 0s);
+        }
+
+        span:nth-child(2) {
+            text-align: center;
+            opacity: 0;
+
+            @include slide-up-animation(2s, 1.5rem, 0.2s);
+        }
+
+        span:nth-child(4) {
+            text-align: end;
+            opacity: 0;
+
+            @include slide-up-animation(2s, 1.5rem, 0.4s);
+        }
+    }
+}
+
+.hidden {
+    display: none;
+
+    @include s-screen {
+        display: inline;
+    }
+}
+
+.and_intro {
+    inset-block-end: 0;
+    inset-inline-start: 0;
+    opacity: 0;
+
+    @include fade-animation(2s, ease, 0.5s);
+}
+
+@include l-screen {
+    .intro {
+        flex-direction: row;
+        gap: 3rem;
+    }
+}
+
+@include xl-screen {
+    .intro {
+        gap: 4rem;
+    }
+
+    .title {
+        max-width: 36rem;
+    }
+
+    .img_box {
+        --img-size: 23rem;
+    }
+}

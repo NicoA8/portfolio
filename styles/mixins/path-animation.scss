@@ -1,0 +1,14 @@
+@mixin path-animation($duration, $path, $timing, $delay: 0s) {
+    stroke-dasharray: $path;
+    animation: path $duration $timing forwards $delay;
+
+    @keyframes path {
+        from {
+            stroke-dashoffset: $path;
+        }
+        to {
+            stroke-dashoffset: 0;
+            opacity: 1;
+        }
+    }
+}

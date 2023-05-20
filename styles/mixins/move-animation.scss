@@ -1,0 +1,17 @@
+@mixin move-animation($initial, $moved) {
+    animation: move 1.3s linear infinite;
+
+    @keyframes move {
+        0% {
+            transform: $initial;
+        }
+
+        50% {
+            transform: $moved;
+        }
+
+        100% {
+            transform: $initial;
+        }
+    }
+}

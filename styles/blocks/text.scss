@@ -1,0 +1,24 @@
+@use "@/styles/mixins/media-query" as *;
+
+.text {
+    width: 80vw;
+    max-width: 26rem;
+    font-family: var(--font-basic);
+    font-weight: 400;
+    font-size: 0.9rem;
+
+    @include s-screen {
+        font-size: 1rem;
+    }
+
+    @include l-screen {
+        width: 32rem;
+        max-width: unset;
+        font-size: 1.125rem;
+    }
+
+    @include xl-screen {
+        width: 40rem;
+        font-size: 1.2rem;
+    }
+}

@@ -1,0 +1,19 @@
+@use "@/styles/mixins/media-query" as *;
+
+.and {
+    display: block;
+    height: 100% !important;
+    width: auto;
+    position: absolute;
+    z-index: -1;
+    stroke-width: 3px;
+    stroke: var(--black-bean);
+
+    path {
+        fill: var(--black-bean) !important;
+    }
+
+    @include l-screen {
+        stroke-width: 2px;
+    }
+}

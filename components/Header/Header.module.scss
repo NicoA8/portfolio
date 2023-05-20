@@ -1,0 +1,84 @@
+@use "@/styles/mixins" as *;
+
+.header {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: visible;
+    overflow-x: clip !important;
+    z-index: 0;
+}
+
+.logo,
+.line {
+    position: absolute;
+    inset: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.logo {
+    z-index: 0;
+    height: 110%;
+    width: auto;
+    opacity: 0;
+
+    @include fade-animation(0.5s, linear);
+
+    path {
+        fill: var(--black-bean) !important;
+    }
+}
+
+.line {
+    z-index: -1;
+    width: 110%;
+    height: auto;
+    min-width: 60rem;
+
+    path {
+        @include path-animation(3s, 2096, ease);
+    }
+}
+
+.title {
+    position: relative;
+    z-index: 1;
+    color: var(--text-color);
+    font-family: var(--font-highlight);
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    text-transform: uppercase;
+    display: grid;
+    grid-template-rows:
+        1fr
+        fit-content(100%) fit-content(100%) fit-content(100%)
+        1fr;
+    grid-template-columns: 1fr clamp(0rem, 75vw, 70rem) 1fr;
+    height: 100%;
+
+    &_one {
+        grid-area: 2/2/3/3;
+        opacity: 0;
+
+        @include slide-in-left-animation(2s, 0.3s);
+    }
+
+    &_two {
+        grid-area: 4/2/5/3;
+        text-align: right;
+        opacity: 0;
+
+        @include slide-in-right-animation(2s, 0.3s);
+    }
+}
+
+.divider {
+    display: inline-block;
+    background-color: transparent;
+    width: 100%;
+    max-height: 8rem;
+    grid-area: 3/2/4/3;
+
+    @include l-screen {
+        min-height: 8vh;
+    }
+}

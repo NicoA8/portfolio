@@ -1,0 +1,223 @@
+@use "@/styles/mixins" as *;
+
+.project_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    max-width: 30rem;
+    opacity: 0;
+
+    &.appear {
+        @include fade-animation(2s, ease);
+    }
+}
+
+.project_tile {
+    --project-size: 18rem;
+    --project-offset: 2rem;
+    --visit-size: 10rem;
+    --visit-offset: 18%;
+
+    position: relative;
+    margin-block-end: 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    transition: all 0.7s ease;
+
+    &::after,
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+    }
+
+    &::before {
+        z-index: -2;
+        inset-inline-start: var(--project-offset);
+        inset-block-start: var(--project-offset);
+        width: calc(var(--project-size) + 0.25rem);
+        height: calc(var(--project-size) + 0.25rem);
+        border: 1px solid var(--blood-red);
+        border-radius: 100%;
+    }
+
+    &::after {
+        mask: url("/visit-right.svg") center / 100% 100% no-repeat;
+        background-color: var(--text-color);
+        width: var(--visit-size);
+        height: var(--visit-size);
+        inset-inline-end: 0;
+        inset-block-end: 0;
+        transform: translate(var(--visit-offset), var(--visit-offset));
+    }
+
+    &:hover {
+        .project_img {
+            opacity: 0;
+
+            &.color {
+                opacity: 1;
+            }
+        }
+    }
+
+    @include fade-animation(2s, ease);
+}
+
+.text_box {
+    display: grid;
+    gap: 1rem;
+}
+
+.description {
+    max-width: none !important;
+    width: unset;
+}
+
+.project_img {
+    grid-area: 1/1/2/2;
+    width: var(--project-size);
+    height: var(--project-size);
+    object-fit: cover;
+    border-radius: 100%;
+    transition: all 0.7s ease;
+
+    &.color {
+        opacity: 0;
+    }
+}
+
+.title_box {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    gap: 0.5rem;
+}
+
+.title {
+    flex-grow: 1;
+    font-family: var(--font-highlight);
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    text-transform: uppercase;
+}
+
+.github {
+    width: clamp(6rem, 12vw, 8rem);
+    height: auto;
+
+    path:last-child {
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: rotate 15s linear infinite;
+        animation-play-state: paused;
+    }
+
+    &:hover {
+        path:last-child {
+            animation-play-state: running;
+        }
+    }
+}
+
+.role {
+    --line-offset: 2rem;
+
+    font-family: var(--font-highlight);
+    font-size: clamp(1.2rem, 1.5vw, 2rem);
+    text-transform: uppercase;
+    position: relative;
+    place-self: start;
+    margin-inline-start: var(--line-offset);
+
+    &::before {
+        content: "";
+        width: calc(var(--line-offset) + 1rem);
+        height: 2px;
+        background-color: var(--blood-red);
+        position: absolute;
+        inset-block-start: 50%;
+        transform: translateY(-45%);
+        z-index: -1;
+        inset-inline-start: calc(-1 * var(--line-offset));
+    }
+}
+
+@include l-screen {
+    .project_box {
+        flex-direction: row;
+        align-items: center;
+        gap: 3rem;
+        max-width: 59rem;
+
+        &.flip {
+            flex-direction: row-reverse;
+
+            .title_box {
+                flex-direction: row-reverse;
+                text-align: end;
+            }
+
+            .text_box {
+                text-align: end;
+            }
+
+            .button {
+                place-self: end;
+            }
+
+            .project_tile {
+                &::before {
+                    inset-inline-start: calc(-1 * var(--project-offset));
+                }
+
+                &::after {
+                    mask: url("/visit-left.svg") center / 100% 100% no-repeat;
+                    inset-inline-start: 0;
+                    inset-block-end: 0;
+                    transform: translate(
+                        calc(-1 * var(--visit-offset)),
+                        var(--visit-offset)
+                    );
+                }
+            }
+
+            .role {
+                place-self: end;
+                margin-inline-end: var(--line-offset);
+
+                &::before {
+                    inset-inline-start: unset;
+                    inset-inline-end: calc(-1 * var(--line-offset));
+                }
+            }
+        }
+    }
+
+    .title_box {
+        flex-direction: row;
+    }
+
+    .project_tile {
+        margin-block-end: 0;
+    }
+}
+
+@include xl-screen {
+    .project_box {
+        gap: 4rem;
+        max-width: 62rem;
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

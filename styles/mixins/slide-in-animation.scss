@@ -1,0 +1,63 @@
+@mixin slide-in-left-animation($duration, $delay) {
+    animation: slide-in-left $duration ease $delay forwards;
+
+    @keyframes slide-in-left {
+        from {
+            transform: translateX(-100%);
+        }
+
+        to {
+            transform: translateX(0);
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+@mixin slide-in-right-animation($duration, $delay) {
+    animation: slide-in-right $duration ease $delay forwards;
+
+    @keyframes slide-in-right {
+        from {
+            transform: translateX(100%);
+        }
+
+        to {
+            transform: translateX(0);
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+@mixin slide-down-animation($duration, $delay) {
+    animation: slide-down $duration ease $delay forwards;
+
+    @keyframes slide-down {
+        from {
+            transform: translateY(-100%);
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+@mixin slide-up-animation($duration, $distance, $delay) {
+    animation: slide-up $duration cubic-bezier(0.65, 0, 0.35, 1) $delay forwards;
+
+    @keyframes slide-up {
+        from {
+            transform: translateY($distance);
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}

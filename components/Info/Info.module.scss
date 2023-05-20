@@ -1,0 +1,105 @@
+@use "@/styles/mixins" as *;
+
+.info {
+    display: grid;
+    width: 100vw;
+    justify-items: center;
+}
+
+.info_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    opacity: 0;
+
+    &.appear {
+        @include fade-animation(3s, ease);
+    }
+
+    &.code,
+    &.skills {
+        align-items: flex-start;
+    }
+
+    &.design {
+        align-items: flex-end;
+    }
+}
+
+.title {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-family: var(--font-highlight);
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    text-transform: uppercase;
+    width: 16rem;
+    white-space: nowrap;
+    flex-grow: 1;
+
+    span {
+        width: 100%;
+    }
+
+    &.code,
+    &.design {
+        span:nth-child(2) {
+            text-align: end;
+        }
+
+        .and {
+            inset-block-end: 0;
+            inset-inline-start: 1rem;
+        }
+    }
+
+    &.skills {
+        span {
+            text-align: end;
+        }
+
+        span:nth-child(2) {
+            text-align: start;
+        }
+    }
+}
+
+.description {
+    text-align: justify;
+}
+
+@include m-screen {
+    .title {
+        width: 42vw;
+        max-width: 20rem;
+    }
+}
+
+@include l-screen {
+    .info_box {
+        align-items: center !important;
+        flex-direction: row;
+        gap: 2rem;
+
+        .description {
+            text-align: start;
+        }
+
+        &.design {
+            flex-direction: row-reverse;
+
+            .description {
+                text-align: end;
+            }
+        }
+    }
+}
+
+@include xl-screen {
+    .info_box {
+        gap: 3rem;
+    }
+}

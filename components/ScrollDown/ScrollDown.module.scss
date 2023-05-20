@@ -1,0 +1,74 @@
+@use "@/styles/mixins" as *;
+
+.scroll_down {
+    position: absolute;
+    z-index: 1;
+    inset-inline: 50%;
+    inset-block-end: 2rem;
+    transform: translateX(-50%);
+    min-width: 4rem;
+    width: 7vw;
+    max-width: 6rem;
+    height: auto;
+    opacity: 0;
+
+    @include fade-animation(1s, ease, 0s);
+
+    &.scrolled .scroll_svg {
+        opacity: 0.2;
+
+        > * {
+            animation: none;
+        }
+
+        &:hover,
+        &:active,
+        &:focus-visible,
+        &.active {
+            opacity: 1;
+
+            circle:first-child {
+                @include path-animation(
+                    1.5s,
+                    326,
+                    cubic-bezier(0.74, 0, 0.24, 0.99),
+                    0s
+                );
+            }
+
+            path:last-child {
+                animation: jump 1s linear 0s infinite;
+            }
+        }
+    }
+}
+
+.scroll_svg {
+    transition: all 0.3s ease;
+    opacity: 1;
+
+    circle:first-child {
+        @include path-animation(
+            1.5s,
+            326,
+            cubic-bezier(0.74, 0, 0.24, 0.99),
+            0s
+        );
+    }
+
+    path:last-child {
+        animation: jump 1s linear 0s infinite;
+    }
+}
+
+@keyframes jump {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}

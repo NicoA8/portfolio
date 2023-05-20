@@ -1,0 +1,29 @@
+@use "@/styles/mixins" as *;
+
+.skill {
+    --size: 16vw;
+    --max-size: 12rem;
+    --min-size: 9rem;
+
+    border-radius: 100%;
+    width: clamp(var(--min-size), var(--size), var(--max-size));
+    height: clamp(var(--min-size), var(--size), var(--max-size));
+    background-color: var(--black-bean);
+    display: grid;
+    place-items: center;
+    color: var(--text-color);
+    font-size: clamp(0.6rem, 1vw, 1rem);
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-align: center;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: all 0.3s ease;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    &.appear {
+        @include scale-animation(1.1, 1s);
+    }
+}

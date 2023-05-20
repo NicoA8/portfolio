@@ -1,0 +1,236 @@
+@use "@/styles/mixins" as *;
+
+.navbar {
+    --transition: all 0.3s linear;
+    --delay: 0.5s;
+
+    position: fixed;
+    inset: 0;
+    inset-block-end: unset;
+    z-index: 1;
+    width: 100vw;
+    padding-inline: 1rem;
+    padding-block-start: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: var(--transition);
+    opacity: 0;
+
+    @include slide-down-animation(0.5s, 0s);
+
+    &::before {
+        content: "";
+        position: absolute;
+        width: 100vw;
+        height: 0;
+        inset-block-start: 0;
+        inset-inline: 0;
+        background: var(--black-gradient);
+        transition: height 1s cubic-bezier(0.74, 0, 0.24, 0.99);
+    }
+
+    &.scrolled::before {
+        height: 100%;
+    }
+
+    &.active {
+        height: 100vh;
+        padding: 2rem;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-between;
+
+        &::before {
+            height: 1000vh;
+        }
+    }
+}
+
+.logo_box {
+    width: 3.5rem;
+    height: fit-content;
+    z-index: 2;
+
+    &.active {
+        position: absolute;
+        z-index: 0;
+        inset: 50%;
+        transform: translate(-60%, -50%);
+        width: 120vw;
+        max-width: 80rem;
+    }
+}
+
+.logo {
+    width: 100%;
+    height: auto;
+
+    @include fade-animation(0.5s, linear, 0s);
+
+    path {
+        transition: var(--transition);
+    }
+
+    &.regular path {
+        opacity: 0.2;
+        fill: transparent;
+        stroke-width: 3px;
+        stroke: var(--text-color);
+        stroke-dashoffset: 10433;
+
+        @include path-animation(5s, 10433, linear, var(--delay));
+    }
+}
+
+.hamburger {
+    --hamburger-size: 4.25rem;
+    --line-height: 2px;
+    --line-offset: 1.4rem;
+
+    width: calc(var(--hamburger-size) - 2rem);
+    height: var(--hamburger-size);
+    position: relative;
+    display: grid;
+    place-items: center right;
+    z-index: 2;
+    cursor: pointer;
+
+    .middle {
+        width: 75%;
+        height: var(--line-height);
+        background-color: var(--text-color);
+        transition: var(--transition);
+    }
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        transform-origin: center;
+        width: 100%;
+        height: var(--line-height);
+        background-color: var(--text-color);
+        inset-inline-end: 0;
+        transition: var(--transition);
+    }
+
+    &::before {
+        inset-block-start: var(--line-offset);
+    }
+
+    &::after {
+        width: 50%;
+        inset-block-end: var(--line-offset);
+    }
+
+    &:hover,
+    &:active,
+    &:focus-visible,
+    &.active {
+        .middle,
+        &::before,
+        &::after {
+            width: 100%;
+        }
+    }
+
+    &.active {
+        --line-offset: 2rem;
+
+        .middle,
+        &::before,
+        &::after {
+            width: 100%;
+        }
+    }
+}
+
+.menu {
+    display: none;
+    place-content: end end;
+    gap: 2rem;
+    padding-block: 4rem;
+    transition: var(--transition);
+    position: relative;
+    z-index: 2;
+
+    @include fade-animation(0.5s, linear, 0s);
+
+    &.active {
+        display: grid;
+        opacity: 0;
+
+        @include fade-animation(0.5s, linear, var(--delay));
+    }
+}
+
+.link {
+    font-family: var(--font-highlight);
+    font-size: clamp(1.5rem, 5vw, 5rem);
+    text-transform: uppercase;
+    text-align: end;
+    transition: var(--transition);
+    transition-timing-function: cubic-bezier(0.25, 0.74, 0.22, 0.99);
+
+    &:hover,
+    &:active,
+    &:focus-visible,
+    &.active {
+        transform: translateX(-2rem);
+    }
+}
+
+// RESPONSIVE
+
+@include m-screen {
+    .navbar {
+        padding-inline: 1.5rem;
+        padding-block-start: 1.5rem;
+    }
+
+    .logo_box {
+        width: 4rem;
+    }
+
+    .hamburger {
+        transform-origin: center;
+        transform: scale(1.15);
+    }
+}
+
+@include l-screen {
+    .logo_box {
+        width: 4.5rem;
+    }
+
+    .hamburger {
+        transform: scale(1.3);
+        margin-inline-end: 0.5rem;
+    }
+
+    .menu {
+        padding-block: 2rem;
+    }
+
+    .logo_box.active {
+        inset-inline-start: 0;
+        transform: translate(0%, -50%);
+        width: 100vw;
+    }
+}
+
+@include xl-screen {
+    .navbar.active {
+        padding: 3rem;
+    }
+
+    .navbar {
+        padding-inline: 2rem;
+        padding-block-start: 2rem;
+    }
+
+    .logo_box {
+        width: 5rem;
+    }
+}

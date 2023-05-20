@@ -1,0 +1,26 @@
+.footer {
+    margin: 2rem;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+    font-family: var(--font-highlight);
+    font-weight: 100;
+    font-size: 0.7rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.icon {
+    width: 1.5rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: scale(1.4);
+        color: var(--blood-red);
+    }
+}
